@@ -1,5 +1,7 @@
-using DemoApi.Hr;
 
+
+
+using Microsoft.AspNetCore.Http.HttpResults;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,10 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+// ABove Here is configuring the "guts" the internals of our API (Services mostly)
 var app = builder.Build();
-
-
-
+// After this is configuring the "Http Pipeline" - how will it handle requests and make responses.
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -20,29 +22,19 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-var summaries = new[]
+// Is it close enough to go to lunch
+app.MapGet("/lunchtime", () =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    if (DateTime.Now.Hour == 12 && (DateTime.Now.Minute > 27))
+    {
+        return Results.Ok();
+    }
+    else
+    {
+        return Results.NotFound();
+    }
+});
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
-
+// Start the Kestrel Web Server - Listen on the assigned port (1338) for HTTP Requests.
 app.Run();
 
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
