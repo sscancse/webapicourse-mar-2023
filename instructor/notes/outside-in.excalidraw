@@ -1,0 +1,111 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://marketplace.visualstudio.com/items?itemName=pomdtr.excalidraw-editor",
+  "elements": [
+    {
+      "id": "8JCfJ_O0Zz_PvVzughF-i",
+      "type": "ellipse",
+      "x": 767,
+      "y": 235,
+      "width": 488,
+      "height": 488,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "roundness": {
+        "type": 2
+      },
+      "seed": 635467225,
+      "version": 61,
+      "versionNonce": 751396343,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1679338818232,
+      "link": null,
+      "locked": false
+    },
+    {
+      "id": "nxmJZ5bc1DefN-5PGhYBg",
+      "type": "arrow",
+      "x": 772,
+      "y": 478,
+      "width": 173,
+      "height": 3,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "roundness": {
+        "type": 2
+      },
+      "seed": 1801541881,
+      "version": 27,
+      "versionNonce": 237499481,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1679338826730,
+      "link": null,
+      "locked": false,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          -173,
+          3
+        ]
+      ],
+      "lastCommittedPoint": null,
+      "startBinding": null,
+      "endBinding": null,
+      "startArrowhead": null,
+      "endArrowhead": "dot"
+    },
+    {
+      "id": "o8xuYXQ8_ww5XztfJtZ4U",
+      "type": "rectangle",
+      "x": 1302,
+      "y": 214,
+      "width": 59,
+      "height": 494,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "roundness": {
+        "type": 3
+      },
+      "seed": 901382457,
+      "version": 47,
+      "versionNonce": 1173158233,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1679338832585,
+      "link": null,
+      "locked": false
+    }
+  ],
+  "appState": {
+    "gridSize": null,
+    "viewBackgroundColor": "#ffffff"
+  },
+  "files": {}
+}
