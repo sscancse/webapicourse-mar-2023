@@ -1,5 +1,7 @@
 
-namespace EmpoyeesApi
+using EmployeesApi.Controllers;
+
+namespace EmployeesApi
 {
     public class Program
     {
@@ -8,14 +10,16 @@ namespace EmpoyeesApi
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+            // Startup ConfigureServices
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddScoped<DepartmentsLookup>();
 
             var app = builder.Build();
 
+            // Startup Configure
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
