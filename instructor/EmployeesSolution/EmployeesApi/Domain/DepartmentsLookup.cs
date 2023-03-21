@@ -13,6 +13,8 @@ public class DepartmentsLookup : ILookupDepartments
 
     public async Task<List<DepartmentItem>> GetDepartmentsAsync()
     {
+        // Never use .Result! Always use the Async version of methods, and await them.
+
         var response = await _context.Departments
               .Select(dept => new DepartmentItem(dept.Code, dept.Description))
               .ToListAsync();
