@@ -18,6 +18,7 @@ namespace EmployeesApi
             builder.Services.AddSwaggerGen();
             //builder.Services.AddScoped<DepartmentsLookup>();
             builder.Services.AddScoped<ILookupDepartments, DepartmentsLookup>();
+            builder.Services.AddScoped<ILookupEmployees, EntityFrameworkEmployeeLookup>();
 
             var sqlConnectionString = builder.Configuration.GetConnectionString("employees");
             Console.WriteLine("Using this connection string " + sqlConnectionString);
