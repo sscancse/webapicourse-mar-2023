@@ -16,7 +16,8 @@ namespace EmployeesApi
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddScoped<DepartmentsLookup>();
+            //builder.Services.AddScoped<DepartmentsLookup>();
+            builder.Services.AddScoped<ILookupDepartments, DepartmentsLookup>();
 
             var sqlConnectionString = builder.Configuration.GetConnectionString("employees");
             Console.WriteLine("Using this connection string " + sqlConnectionString);
@@ -45,7 +46,9 @@ namespace EmployeesApi
 
             app.MapControllers();
 
-            app.Run();
+            app.Run(); // kestrel web server is up and listening for requests. 
+                            // there is only ONE of these per API
+                               // It is a "Singleton"
         }
     }
 }
