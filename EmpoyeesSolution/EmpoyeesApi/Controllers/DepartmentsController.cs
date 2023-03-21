@@ -2,9 +2,9 @@
 
 public class DepartmentsController : ControllerBase
 {
-    private readonly DepartmentsLookup _departmentLookup;
+    private readonly IDepartmentsLookup _departmentLookup;
 
-    public DepartmentsController(DepartmentsLookup departmentLookup)
+    public DepartmentsController(IDepartmentsLookup departmentLookup)
     {
         _departmentLookup = departmentLookup;
     }

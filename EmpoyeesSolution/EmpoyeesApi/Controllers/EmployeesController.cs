@@ -2,8 +2,14 @@
 
 public class EmployeesController : ControllerBase
 {
-    // GET /employees
+    private readonly IEmployeesLookup _employeeLookupService;
 
+    public EmployeesController(IEmployeesLookup employeeLookupService)
+    {
+        _employeeLookupService = employeeLookupService;
+    }
+
+    // GET /employees
     [HttpGet("/employees")]
     public async Task<ActionResult<EmployeeSummaryResponse>> GetAllEmployees([FromQuery] string dept = "All")
     {
@@ -14,18 +20,15 @@ public class EmployeesController : ControllerBase
     [HttpGet("/employees/{employeeId}")]
     public async Task<ActionResult<EmployeeResponse>> GetEmployeeById([FromRoute] string employeeId)
     {
-        if (int.Parse(employeeId) % 2 == 0)
+        EmployeeResponse? response = await _employeeLookupService.GetEmployeeByIdAsync(employeeId);
+
+        if (response is null)
         {
-            var contacts = new Dictionary<string, Dictionary<string, string>>() {
-                {"home", new Dictionary<string, string> { {"email", "bob@aol.com" }, { "phone", "555-1212"} } },
-                {"work", new Dictionary<string, string> { {"email", "bob@company.com"}, { "phone", "888-1212"} } }
-            };
-            var response = new EmployeeResponse(employeeId, new NameInformation("Bob", "Smith"), new WorkDetails("DEV"), contacts);
-            return Ok(response);
+            return NotFound();
         }
         else
         {
-            return NotFound();
+            return Ok(response);
         }
         // 200 Ok with that employee
         // 404

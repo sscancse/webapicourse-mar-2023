@@ -16,7 +16,8 @@ namespace EmployeesApi
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddScoped<DepartmentsLookup>();
+            //builder.Services.AddScoped<IDepartmentsLookup, FakeDepartmentsLookup>();
+            builder.Services.AddScoped<IDepartmentsLookup, DepartmentsLookup>();
 
             var sqlConnectionString = builder.Configuration.GetConnectionString("employees");
             Console.WriteLine("Using connection string: " + sqlConnectionString);
