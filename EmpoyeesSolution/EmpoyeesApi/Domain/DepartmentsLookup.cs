@@ -4,7 +4,7 @@ public class DepartmentsLookup
 {
     public async Task<List<DepartmentItem>> GetDepartmentsAsync()
     {
-        // TODO: Tomorrow, this will get data from out database.
+        // TODO: Tomorrow, this will get data from our database.
         return new List<DepartmentItem>
         {
             new DepartmentItem("DEV", "Developers"),
