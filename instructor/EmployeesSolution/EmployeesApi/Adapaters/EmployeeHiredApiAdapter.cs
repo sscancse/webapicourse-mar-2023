@@ -12,7 +12,7 @@ public class EmployeeHiredApiAdapter
     public async Task NotifyOfNewHire(string email, DateTime hireDate)
     {
         var request = new EmployeeHiringRequest(email, hireDate);
-        var response = await _httpClient.PostAsJsonAsync("/hirring-notifications", request);
+        var response = await _httpClient.PostAsJsonAsync("/hiring-notifications", request);
 
         response.EnsureSuccessStatusCode();
 

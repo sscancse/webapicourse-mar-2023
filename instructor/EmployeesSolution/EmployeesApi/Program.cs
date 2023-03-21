@@ -26,8 +26,20 @@ namespace EmployeesApi
                 throw new Exception("Don't start this api! Can't connect to a database");
             }
 
+            // Typed or Named Client
+            // - 
+            builder.Services.AddHttpClient<EmployeeHiredApiAdapter>(client =>
+            {
+                // Singleton service for the HttpClient
+                // But  the message handler is scoped.
+                client.BaseAddress = new Uri(builder.Configuration.GetValue<string>("employee-api")!);
+            });
+
             builder.Services.AddDbContext<EmployeesDataContext>(options =>
             {
+                // 1 singleton service that the data context needs for connections
+                // 1 scoped service for the Data Context
+
                 options.UseSqlServer(sqlConnectionString);
             }); 
 

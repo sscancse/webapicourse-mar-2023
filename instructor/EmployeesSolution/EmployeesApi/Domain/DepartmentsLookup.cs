@@ -16,8 +16,13 @@ public class DepartmentsLookup : ILookupDepartments
         // Never use .Result! Always use the Async version of methods, and await them.
 
         var response = await _context.Departments
+                .Where(dept => dept.Code != "sales")
+                .OrderBy(dept => dept.Code)
               .Select(dept => new DepartmentItem(dept.Code, dept.Description))
+              
               .ToListAsync();
+
+
         return response;
 
     }
