@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using EmployeesApi.Models;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
@@ -8,11 +10,12 @@ public class EntityFrameworkEmployeeLookup : ILookupEmployees
 {
     private readonly EmployeesDataContext _context;
     private readonly IMapper _mapper;
-
-    public EntityFrameworkEmployeeLookup(EmployeesDataContext context, IMapper mapper)
+    private readonly MapperConfiguration _config;
+    public EntityFrameworkEmployeeLookup(EmployeesDataContext context, IMapper mapper, MapperConfiguration config)
     {
         _context = context;
         _mapper = mapper;
+        _config = config;
     }
 
     public async Task<EmployeeResponse?> GetEmployeeByIdAsync(string employeeId)
@@ -32,23 +35,23 @@ public class EntityFrameworkEmployeeLookup : ILookupEmployees
 
     public async Task<ContactItem?> GetEmployeeContactInfoForHomeAsync(string employeeId)
     {
-        var id = int.Parse(employeeId);
-       var response = await _context.Employees.Where(emp => emp.Id == id)
-            .Select(emp => new ContactItem {  Email = emp.HomeEmail, Phone = emp.HomePhone})
-            .SingleOrDefaultAsync();
-
-        return response;
+        return await GetContactInfoAsync<HomeContactItem>(employeeId);
 
     }
-
     public async Task<ContactItem?> GetEmployeeContactInfoForWorkAsync(string employeeId)
+    {
+        return await GetContactInfoAsync<WorkContactItem>(employeeId);
+    }
+
+    private async Task<ContactItem?> GetContactInfoAsync<TModel>(string employeeId) where TModel : ContactItem
     {
         var id = int.Parse(employeeId);
         var response = await _context.Employees.Where(emp => emp.Id == id)
-             .Select(emp => new ContactItem { Email = emp.WorkEmail, Phone = emp.WorkPhone })
+             .ProjectTo<TModel>(_config)
              .SingleOrDefaultAsync();
 
         return response;
     }
+
 }
 
