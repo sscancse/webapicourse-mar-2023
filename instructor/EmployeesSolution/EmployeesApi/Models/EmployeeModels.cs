@@ -36,3 +36,6 @@ public record ContactItem
 	public string Phone { get; init; } = string.Empty;
 }
 
+public record WorkContactItem : ContactItem;
+
+public record HomeContactItem: ContactItem;
