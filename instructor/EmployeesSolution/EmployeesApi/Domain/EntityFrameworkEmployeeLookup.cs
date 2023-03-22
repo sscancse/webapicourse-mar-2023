@@ -48,8 +48,8 @@ public class EntityFrameworkEmployeeLookup : ILookupEmployees, IManageEmployees
     {
         var id = int.Parse(employeeId);
         var employee = await _context.Employees.SingleOrDefaultAsync(emp => emp.Id == id);
-
-        if (employee !=  null)
+        
+        if (employee != null)
         {
             employee.HomePhone = contactItem.Phone;
             employee.HomeEmail = contactItem.Email;
