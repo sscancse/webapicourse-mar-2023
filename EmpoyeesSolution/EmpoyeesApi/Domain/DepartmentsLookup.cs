@@ -13,8 +13,10 @@ public class DepartmentsLookup : IDepartmentsLookup
 
     public async Task<List<DepartmentItem>> GetDepartmentsAsync()
     {
-        return await _context.Departments.
-            Select(dept => new DepartmentItem(dept.Code, dept.Description)).
-            ToListAsync();
+        // Never use .Result - always use async method and await
+        return await _context.Departments
+            .OrderBy(dept => dept.Code)
+            .Select(dept => new DepartmentItem(dept.Code, dept.Description))
+            .ToListAsync();
     }
 }

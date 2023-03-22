@@ -1,4 +1,6 @@
-﻿namespace EmployeesApi.Domain;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace EmployeesApi.Domain;
 
 public class EntityFrameworkEmployeeLookup : IEmployeesLookup
 {
@@ -9,8 +11,21 @@ public class EntityFrameworkEmployeeLookup : IEmployeesLookup
         _context = context;
     }
 
-    public Task<EmployeeResponse?> GetEmployeeByIdAsync(string employeeId)
+    public async Task<EmployeeResponse?> GetEmployeeByIdAsync(string employeeId)
     {
-        throw new NotImplementedException();
+        var employee = await _context.Employees
+            .Where(e => e.Id == int.Parse(employeeId))
+            .SingleOrDefaultAsync();
+
+        if (employee is null)
+            return null;
+
+        return new EmployeeResponse(employee.Id.ToString(), new NameInformation(employee.FirstName, employee.LastName), new WorkDetails(employee.Department),
+            new Dictionary<string, Dictionary<string, string>>
+            {
+                {"home", new Dictionary<string, string>{ { "email", employee.HomeEmail }, {"phone", employee.HomePhone } } },
+                {"work", new Dictionary<string, string>{ {"email", employee.WorkEmail},{"phone", employee.WorkPhone } } },
+            }
+        );
     }
 }

@@ -1,6 +1,9 @@
-﻿namespace EmployeesApi.Domain
+﻿namespace EmployeesApi.Domain;
+
+public class FakeDepartmentsLookup : IDepartmentsLookup
 {
-    public class FakeDepartmentsLookup
+    public async Task<List<DepartmentItem>> GetDepartmentsAsync()
     {
+        return new List<DepartmentItem>() { new DepartmentItem("CEO", "Running Things") };
     }
 }
