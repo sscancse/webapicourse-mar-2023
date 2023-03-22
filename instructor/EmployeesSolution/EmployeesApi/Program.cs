@@ -2,6 +2,7 @@
 
 using AutoMapper;
 using EmployeesApi.AutomapperProfiles;
+using EmployeesApi.Controllers.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeesApi
@@ -21,6 +22,7 @@ namespace EmployeesApi
             //builder.Services.AddScoped<DepartmentsLookup>();
             builder.Services.AddScoped<ILookupDepartments, DepartmentsLookup>();
             builder.Services.AddScoped<ILookupEmployees, EntityFrameworkEmployeeLookup>();
+            builder.Services.AddScoped<IManageEmployees, EntityFrameworkEmployeeLookup>();
 
             var sqlConnectionString = builder.Configuration.GetConnectionString("employees");
             Console.WriteLine("Using this connection string " + sqlConnectionString);
