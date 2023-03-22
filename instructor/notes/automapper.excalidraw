@@ -181,6 +181,49 @@
       "baseline": 18,
       "containerId": null,
       "originalText": "\"Destination (dest)\""
+    },
+    {
+      "id": "2fdu1WYW3EK9tLt-Iy1Bn",
+      "type": "arrow",
+      "x": 526,
+      "y": 313,
+      "width": 541,
+      "height": 39,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "roundness": {
+        "type": 2
+      },
+      "seed": 1572436979,
+      "version": 31,
+      "versionNonce": 1575893075,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1679499117205,
+      "link": null,
+      "locked": false,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          541,
+          -39
+        ]
+      ],
+      "lastCommittedPoint": null,
+      "startBinding": null,
+      "endBinding": null,
+      "startArrowhead": null,
+      "endArrowhead": "arrow"
     }
   ],
   "appState": {
