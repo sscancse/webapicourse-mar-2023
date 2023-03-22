@@ -25,3 +25,7 @@ public record ContactItem
     public string Email { get; init; } = string.Empty;
     public string Phone { get; init; } = string.Empty;
 }
+
+public record WorkContactItem : ContactItem;
+
+public record HomeContactItem : ContactItem;

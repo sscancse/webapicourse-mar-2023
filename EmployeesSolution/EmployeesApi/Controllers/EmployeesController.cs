@@ -33,4 +33,24 @@ public class EmployeesController : ControllerBase
         // 200 Ok with that employee
         // 404
     }
+
+    // GET /employees/{employeeId}/contact-information/home
+    [HttpGet("/employees/{employeeId}/contact-information/home")]
+    public async Task<ActionResult<ContactItem>> GetEmployeeHomeContactInfo(string employeeId)
+    {
+        ContactItem? response = await _employeeLookupService.GetEmployeeContactInfoForHomeAsync(employeeId);
+
+        return response is null ? NotFound() : Ok(response);
+    }
+
+    // GET /employees/{employeeId}/contact-information/work
+    [HttpGet("/employees/{employeeId}/contact-information/work")]
+    public async Task<ActionResult<ContactItem>> GetEmployeeWorkContactInfo(string employeeId)
+    {
+
+
+        ContactItem? response = await _employeeLookupService.GetEmployeeContactInfoForWorkAsync(employeeId);
+
+        return response is null ? NotFound() : Ok(response);
+    }
 }
