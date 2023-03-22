@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace EmployeesApi.Domain;
@@ -6,10 +7,12 @@ namespace EmployeesApi.Domain;
 public class EntityFrameworkEmployeeLookup : ILookupEmployees
 {
     private readonly EmployeesDataContext _context;
+    private readonly IMapper _mapper;
 
-    public EntityFrameworkEmployeeLookup(EmployeesDataContext context)
+    public EntityFrameworkEmployeeLookup(EmployeesDataContext context, IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
     }
 
     public async Task<EmployeeResponse?> GetEmployeeByIdAsync(string employeeId)
@@ -23,13 +26,8 @@ public class EntityFrameworkEmployeeLookup : ILookupEmployees
 
         if (employee is null) { return null; }
 
-        return new EmployeeResponse(employee.Id.ToString(), new NameInformation(employee.FirstName, employee.LastName), new WorkDetails(employee.Department),
-                new Dictionary<string, Dictionary<string, string>>
-                {
-                                    { "home", new Dictionary<string, string> { { "email", employee.HomeEmail}, { "phone", employee.HomePhone } } },
-                                    { "work", new Dictionary<string, string> {{ "email", employee.WorkEmail}, {  "phone", employee.WorkPhone } } },
-                }
-            );
+        return _mapper.Map<EmployeeResponse>(employee);
+       
     }
 
 }
