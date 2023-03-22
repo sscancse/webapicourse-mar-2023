@@ -47,8 +47,6 @@ public class EmployeesController : ControllerBase
     [HttpGet("/employees/{employeeId}/contact-information/work")]
     public async Task<ActionResult<ContactItem>> GetEmployeeWorkContactInfo(string employeeId)
     {
-
-
         ContactItem? response = await _employeeLookupService.GetEmployeeContactInfoForWorkAsync(employeeId);
 
         return response is null ? NotFound() : Ok(response);
