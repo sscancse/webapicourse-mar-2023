@@ -30,5 +30,26 @@ public class EntityFrameworkEmployeeLookup : ILookupEmployees
        
     }
 
+    public async Task<ContactItem?> GetEmployeeContactInfoForHomeAsync(string employeeId)
+    {
+        var id = int.Parse(employeeId);
+       var response = await _context.Employees.Where(emp => emp.Id == id)
+            .Select(emp => new ContactItem {  Email = emp.HomeEmail, Phone = emp.HomePhone})
+            .SingleOrDefaultAsync();
+
+        return response;
+
+    }
+
+    public async Task<ContactItem?> GetEmployeeContactInfoForWorkAsync(string employeeId)
+    {
+        await Task.Delay(4000); // SIMULATED slow down. DON'T DO THIS!
+        var id = int.Parse(employeeId);
+        var response = await _context.Employees.Where(emp => emp.Id == id)
+             .Select(emp => new ContactItem { Email = emp.WorkEmail, Phone = emp.WorkPhone })
+             .SingleOrDefaultAsync();
+
+        return response;
+    }
 }
 
