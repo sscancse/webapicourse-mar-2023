@@ -25,4 +25,18 @@ public class EntityFrameworkEmployeeLookup : IEmployeesLookup
 
         return _mapper.Map<EmployeeResponse>(employee);
     }
+
+    public async Task<ContactItem?> GetEmployeeContactInfoForHomeAsync(string employeeId)
+    {
+        return await _context.Employees.Where(emp => emp.Id == int.Parse(employeeId))
+             .Select(emp => new ContactItem { Email = emp.HomeEmail, Phone = emp.HomePhone })
+             .SingleOrDefaultAsync();
+    }
+
+    public async Task<ContactItem?> GetEmployeeContactInfoForWorkAsync(string employeeId)
+    {
+        return await _context.Employees.Where(emp => emp.Id == int.Parse(employeeId))
+             .Select(emp => new ContactItem { Email = emp.WorkEmail, Phone = emp.WorkPhone })
+             .SingleOrDefaultAsync();
+    }
 }
