@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using EmployeesApi.Controllers.Domain;
 using EmployeesApi.Models;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace EmployeesApi.Domain;
 
-public class EntityFrameworkEmployeeLookup : ILookupEmployees
+public class EntityFrameworkEmployeeLookup : ILookupEmployees, IManageEmployees
 {
     private readonly EmployeesDataContext _context;
     private readonly IMapper _mapper;
@@ -41,6 +42,23 @@ public class EntityFrameworkEmployeeLookup : ILookupEmployees
     public async Task<ContactItem?> GetEmployeeContactInfoForWorkAsync(string employeeId)
     {
         return await GetContactInfoAsync<WorkContactItem>(employeeId);
+    }
+
+    public async Task<bool> UpdateContactInfoAsync(string employeeId, HomeContactItem contactItem)
+    {
+        var id = int.Parse(employeeId);
+        var employee = await _context.Employees.SingleOrDefaultAsync(emp => emp.Id == id);
+        
+        if (employee != null)
+        {
+            employee.HomePhone = contactItem.Phone;
+            employee.HomeEmail = contactItem.Email;
+
+            // NOTHING WILL HAPPEN UNLESS YOU DO THIS.
+            await _context.SaveChangesAsync();
+            return true;
+        };
+        return false;
     }
 
     private async Task<ContactItem?> GetContactInfoAsync<TModel>(string employeeId) where TModel : ContactItem
