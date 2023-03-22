@@ -1,5 +1,7 @@
 
+using AutoMapper;
 using EmployeesApi.Adapaters;
+using EmployeesApi.AutomapperProfiles;
 using EmployeesApi.Controllers;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +21,7 @@ namespace EmployeesApi
             builder.Services.AddSwaggerGen();
             //builder.Services.AddScoped<IDepartmentsLookup, FakeDepartmentsLookup>();
             builder.Services.AddScoped<IDepartmentsLookup, DepartmentsLookup>();
+            builder.Services.AddScoped<IEmployeesLookup, EntityFrameworkEmployeeLookup>();
 
             var sqlConnectionString = builder.Configuration.GetConnectionString("employees");
             Console.WriteLine("Using connection string: " + sqlConnectionString);
@@ -36,10 +39,20 @@ namespace EmployeesApi
 
             builder.Services.AddDbContext<EmployeesDataContext>(options =>
             {
-                // 1 singleton service that data context needs for connections
-                // 1 scoped service for the data context
+                // Singleton service that data context needs for connections
+                // Scoped service for the data context
                 options.UseSqlServer(sqlConnectionString);
             });
+
+            var mapperConfig = new MapperConfiguration(options =>
+            {
+                options.AddProfile<Departments>();
+                options.AddProfile<Employees>();
+            });
+            var mapper = mapperConfig.CreateMapper();
+
+            builder.Services.AddSingleton<MapperConfiguration>(mapperConfig);
+            builder.Services.AddSingleton<IMapper>(mapper);
 
             var app = builder.Build();
 

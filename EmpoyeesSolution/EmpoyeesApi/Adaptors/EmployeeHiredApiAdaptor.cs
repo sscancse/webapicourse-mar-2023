@@ -15,7 +15,6 @@ public class EmployeeHiredApiAdapter
         var response = await _httpClient.PostAsJsonAsync("/hiring-notifications", request);
 
         response.EnsureSuccessStatusCode();
-
     }
 }
 

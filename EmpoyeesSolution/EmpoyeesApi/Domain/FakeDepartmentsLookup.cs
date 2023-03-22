@@ -4,6 +4,6 @@ public class FakeDepartmentsLookup : IDepartmentsLookup
 {
     public async Task<List<DepartmentItem>> GetDepartmentsAsync()
     {
-        return new List<DepartmentItem>() { new DepartmentItem("CEO", "Running Things") };
+        return new List<DepartmentItem>() { new DepartmentItem { Id = "CEO", Description = "Running Things" } };
     }
 }
