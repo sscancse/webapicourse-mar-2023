@@ -1,5 +1,7 @@
 
 
+using AutoMapper;
+using EmployeesApi.AutomapperProfiles;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeesApi
@@ -42,8 +44,17 @@ namespace EmployeesApi
                 // 1 scoped service for the Data Context
 
                 options.UseSqlServer(sqlConnectionString);
-            }); 
+            });
 
+            var mapperConfig = new MapperConfiguration(options =>
+            {
+                options.AddProfile<Departments>();
+            });
+
+            var mapper = mapperConfig.CreateMapper();
+
+            builder.Services.AddSingleton<MapperConfiguration>(mapperConfig);
+            builder.Services.AddSingleton<IMapper>(mapper);
             var app = builder.Build();
             
             // Startup Configure
